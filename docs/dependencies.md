@@ -81,7 +81,22 @@ export OBSIDIAN_VAULT="/path/to/vault"
 
 Keep database credentials in environment variables, not in this repository.
 
-## 6. Install and verify Neovim plugins
+## 6. Inline images and Mermaid diagrams
+
+`snacks.image` draws images and `mermaid` code blocks inline in the buffer. It needs a terminal that
+speaks the Kitty graphics protocol: Ghostty, Kitty, or WezTerm.
+
+```shell
+brew install imagemagick mermaid-cli
+```
+
+| Tool | Why it is needed | Used by |
+| --- | --- | --- |
+| `imagemagick` (`magick`) | Converts SVG, PDF, and raster sources to PNG and reads their dimensions | snacks.image |
+| `mermaid-cli` (`mmdc`) | Renders Mermaid diagrams to PNG | snacks.image |
+| `tectonic` | Renders LaTeX math expressions. Only needed when `image.math` stays enabled | snacks.image |
+
+## 7. Install and verify Neovim plugins
 
 Start Neovim and run:
 

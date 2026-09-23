@@ -93,6 +93,12 @@ return {
       dashboard = { enabled = false },
       gh = { enabled = true },
       gitbrowse = { enabled = true },
+      -- Inline images and mermaid diagrams over the Kitty graphics protocol.
+      -- Needs `magick` and `mmdc`. Math stays off so it does not require tectonic.
+      image = {
+        enabled = true,
+        math = { enabled = false },
+      },
       indent = { enabled = true },
       input = { enabled = true },
       -- Only for the vim.ui.select override, so prompts match snacks.input
