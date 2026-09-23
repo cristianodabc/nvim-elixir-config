@@ -96,6 +96,18 @@ brew install imagemagick mermaid-cli
 | `mermaid-cli` (`mmdc`) | Renders Mermaid diagrams to PNG | snacks.image |
 | `tectonic` | Renders LaTeX math expressions. Only needed when `image.math` stays enabled | snacks.image |
 
+`mmdc` drives a headless Chrome through Puppeteer and does not ship one. Install the build it asks
+for, then confirm the whole chain works:
+
+```shell
+npx --yes puppeteer@latest browsers install chrome-headless-shell
+printf 'graph TD\n  A[Start] --> B[End]\n' > /tmp/t.mmd
+mmdc -i /tmp/t.mmd -o /tmp/t.png && magick identify /tmp/t.png
+```
+
+If `mmdc` reports a version of `chrome-headless-shell` it cannot find, rerun the install command
+with that exact version appended, such as `chrome-headless-shell@152.0.7977.75`.
+
 ## 7. Install and verify Neovim plugins
 
 Start Neovim and run:
