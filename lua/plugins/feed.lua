@@ -36,6 +36,12 @@ return {
           { "https://rss.arxiv.org/rss/cs.PL", name = "arXiv cs.PL" },
           { "https://rss.arxiv.org/rss/cs.DC", name = "arXiv cs.DC" },
         },
+
+        pg = {
+          { "https://arede.info/rss", name = "aRede" },
+          { "https://www.pontagrossa.pr.gov.br/feed", name = "Prefeitura de Ponta Grossa" },
+          { "https://www.pontagrossa.pr.leg.br/rss.xml", name = "Camara de Ponta Grossa" },
+        },
       },
 
       options = {
