@@ -69,6 +69,7 @@ return {
         legacy_commands = false,
         note_id_func = note_id,
         daily_notes = {
+          date_format = "YYYY/MM/YYYY-MM-DD",
           folder = "journal",
           template = "journal",
         },
