@@ -97,6 +97,10 @@ return {
       -- Needs `magick` and `mmdc`. Math stays off so it does not require tectonic.
       image = {
         enabled = true,
+        doc = {
+          max_width = 120,
+          max_height = 60,
+        },
         math = { enabled = false },
       },
       indent = { enabled = true },
