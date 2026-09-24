@@ -55,7 +55,6 @@ return {
         { "<leader>f", group = "Find" },
         { "<leader>g", group = "Git" },
         { "<leader>gb", group = "Blame", icon = { icon = "", color = "orange" } },
-        { "<leader>gd", group = "Diff", icon = { icon = "", color = "orange" } },
         { "<leader>gh", group = "Hunks", icon = { icon = "", color = "orange" } },
         { "<leader>gl", group = "Links", icon = { icon = "", color = "blue" } },
         { "<leader>gw", group = "Worktrees", icon = { icon = "", color = "purple" } },

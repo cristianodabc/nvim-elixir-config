@@ -10,7 +10,7 @@ This is a personal configuration rather than a general-purpose Neovim distributi
 - Tree-sitter syntax highlighting and indentation.
 - Completion, diagnostics, formatting, and test navigation.
 - Telescope search, nvim-tree file browsing, and project-wide replacement.
-- Gitsigns, Diffview, LazyGit, permalinks, and tab-local worktree switching.
+- Gitsigns, LazyGit, permalinks, and tab-local worktree switching.
 - Optional Codex, Claude Code, OpenCode, Ollama, and Obsidian integrations.
 
 ## Requirements
