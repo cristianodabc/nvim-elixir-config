@@ -111,3 +111,28 @@ end, { desc = "Switch worktree in tab" })
 vim.keymap.set("n", "<leader>gwt", function()
   require("config.worktree").tab()
 end, { desc = "Open worktree in new tab" })
+
+-- Copy the current file path to the clipboard
+local function copy_path(modifier)
+  local path = vim.fn.expand("%" .. modifier)
+
+  if path == "" then
+    vim.notify("Buffer has no file path", vim.log.levels.WARN)
+    return
+  end
+
+  vim.fn.setreg("+", path)
+  vim.notify(path, vim.log.levels.INFO)
+end
+
+vim.keymap.set("n", "<leader>up", function()
+  copy_path(":.")
+end, { desc = "Copy relative file path" })
+
+vim.keymap.set("n", "<leader>uP", function()
+  copy_path(":p")
+end, { desc = "Copy absolute file path" })
+
+vim.keymap.set("n", "<leader>uf", function()
+  copy_path(":t")
+end, { desc = "Copy file name" })
