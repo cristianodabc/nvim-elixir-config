@@ -28,6 +28,12 @@ return {
           { "https://www.erlang-solutions.com/blog/feed/", name = "Erlang Solutions" },
         },
 
+        security = {
+          { "https://github.com/mirego/elixir-security-advisories/commits/main.atom", name = "Hex Advisories" },
+          { "https://github.com/erlang/otp/releases.atom", name = "OTP Releases" },
+          { "https://github.com/elixir-lang/elixir/releases.atom", name = "Elixir Releases" },
+        },
+
         fp = {
           { "https://www.tweag.io/rss.xml", name = "Tweag" },
         },
