@@ -11,7 +11,7 @@ This is a personal configuration rather than a general-purpose Neovim distributi
 - Completion, diagnostics, formatting, and test navigation.
 - Telescope search, nvim-tree file browsing, and project-wide replacement.
 - Gitsigns, LazyGit, permalinks, and tab-local worktree switching.
-- Optional Codex, Claude Code, OpenCode, Ollama, and Obsidian integrations.
+- Optional Codex, Claude Code, Pi, OpenCode, Ollama, and Obsidian integrations.
 
 ## Requirements
 
@@ -64,15 +64,19 @@ Mappings are defined close to the behavior they invoke and include descriptions 
 
 ### Diff review
 
-Claude Code proposes an edit as a two-pane diff and waits for a verdict. The keys are buffer-local to the proposed pane, so they exist only while a diff is open.
+Claude Code and π both propose an edit as a two-pane diff and wait for a verdict. Both bind the same keys, and both bind them buffer-local to the proposed pane, so they exist only while a diff is open.
 
 | Mapping | Action |
 | --- | --- |
 | `<leader>da` | Accept the proposed change |
 | `<leader>dr` | Reject the proposed change |
-| `<leader>dq` | Close pending diffs |
+| `<leader>dq` | Close pending Claude diffs |
 
-Editing the proposed pane before accepting is supported: what you accept is the pane as it stands, not the original proposal.
+Editing the proposed pane before accepting is supported by both: what you accept is the pane as it stands, not the original proposal.
+
+π layers review notes on top of the same prefix. `<leader>dn` attaches a note to the current line or visual selection, `<leader>dx` deletes one, `<leader>dN` lists them, and `<leader>de` and `<leader>ds` grow and shrink the visible context. Notes travel back to the agent with the verdict instead of being written into the file.
+
+π shows no diff at all without a permission extension, because pi has no permission system of its own and applies edits directly. See [System dependencies](docs/dependencies.md).
 
 ## Organization
 

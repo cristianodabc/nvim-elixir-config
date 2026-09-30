@@ -58,10 +58,38 @@ brew install anomalyco/tap/opencode
 Follow [OpenCode with Ollama](opencode-ollama.md) to install the models, configure their short
 aliases, and point OpenCode at them.
 
-Codex and Claude are separate, optional integrations:
+Codex, Claude, and π are separate, optional integrations:
 
 - Codex: follow the [Codex CLI installation guide](https://learn.chatgpt.com/docs/codex/cli).
 - Claude: run `npm install -g @anthropic-ai/claude-code`.
+- π: run `npm install -g --ignore-scripts @earendil-works/pi-coding-agent`. Needs Node 22.19 or newer.
+
+### π on Claude models
+
+`pi.nvim` does not manage credentials or providers; both live in pi itself. Point pi at Anthropic in `~/.pi/agent/settings.json`:
+
+```json
+{
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-opus-5-5",
+  "enabledModels": ["anthropic/claude-opus-*", "anthropic/claude-sonnet-*", "anthropic/claude-haiku-*"]
+}
+```
+
+`defaultModel` is an exact ID and needs bumping when a newer Opus ships; `enabledModels` bounds what the pickers offer. Authenticate with `ANTHROPIC_API_KEY` in the environment, or run `/login` inside `pi` to attach a subscription. Verify both with:
+
+```shell
+pi auth check --provider anthropic
+pi --list-models anthropic
+```
+
+`:PiSelectModel` in Neovim narrows to the newest Opus, Sonnet, and Haiku; `:PiSelectModelAll` reaches everything pi can see.
+
+### π diff review needs a permission extension
+
+pi ships no permission system. It dispatches `edit` and `write` the moment it decides to, so by default the agent writes straight to disk and `pi.nvim` never gets a chance to show a diff. Diff review only happens when an extension intercepts those tool calls and routes them through `ctx.ui.select`.
+
+[`alex35mil/agentic-af`](https://github.com/alex35mil/agentic-af) is the reference implementation, installed with `pi install git:github.com/alex35mil/agentic-af`. Its `permission` extension imports shared helpers from the package, so it cannot be installed on its own; the package also carries five other extensions, skills, prompts, themes, and a workflow system. Review that source before installing it, since a permission extension sees every tool call the agent makes.
 
 ## 5. Optional integrations
 

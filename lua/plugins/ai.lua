@@ -1,6 +1,11 @@
--- One width for every assistant chat panel, as a ratio of the editor that each
--- plugin reapplies on open.
+-- One width for every assistant chat panel. Codex, Claude Code, and OpenCode
+-- take a ratio of the editor and reapply it on each open; pi takes columns, so
+-- it derives them when the plugin loads.
 local CHAT_WIDTH_RATIO = 0.30
+
+local function chat_width_columns()
+  return math.floor(vim.o.columns * CHAT_WIDTH_RATIO)
+end
 
 return {
   {
@@ -85,7 +90,8 @@ return {
 
       -- The plugin ships the accept/deny commands but binds no keys. Register
       -- them buffer-local on the proposed pane so they only exist while a diff
-      -- is live and die with the buffer.
+      -- is live and die with the buffer, and so they match the diff review keys
+      -- pi.nvim binds by default.
       local function map(buffer, lhs, rhs, desc)
         vim.keymap.set("n", lhs, rhs, { buffer = buffer, desc = desc })
       end
@@ -148,5 +154,53 @@ return {
     config = function(_, opts)
       require("opencode").setup(opts)
     end,
+  },
+
+  {
+    "alex35mil/pi.nvim",
+    cmd = {
+      "Pi",
+      "PiContinue",
+      "PiResume",
+      "PiSelectModel",
+      "PiSelectModelAll",
+      "PiSendMention",
+      "PiStop",
+      "PiToggleLayout",
+    },
+    -- A function so the column count is read when the plugin loads rather than
+    -- when this spec is sourced.
+    opts = function()
+      return {
+        -- Curate the cycle and picker down to Claude. Credentials and the
+        -- startup provider live in pi itself, not here; see
+        -- docs/dependencies.md. `latest` keeps the newest match without pinning
+        -- a version that goes stale, by taking the ID that sorts last.
+        models = {
+          { match = "claude-opus", latest = true },
+          { match = "claude-sonnet", latest = true },
+          { match = "claude-haiku", latest = true },
+        },
+        layout = {
+          default = "side",
+          side = {
+            position = "right",
+            width = chat_width_columns(),
+          },
+        },
+        -- diff.keys already defaults to <leader>da and <leader>dr, which is
+        -- what the Claude diff keymaps above were matched to. Left as is.
+      }
+    end,
+    config = function(_, opts)
+      require("pi").setup(opts)
+    end,
+    keys = {
+      {
+        "<leader>ap",
+        "<cmd>Pi<cr>",
+        desc = "Pi",
+      },
+    },
   },
 }
