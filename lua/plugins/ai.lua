@@ -1,3 +1,7 @@
+-- One width for every assistant chat panel, as a ratio of the editor that each
+-- plugin reapplies on open.
+local CHAT_WIDTH_RATIO = 0.30
+
 return {
   {
     "ishiooon/codex.nvim",
@@ -22,7 +26,7 @@ return {
       terminal = {
         provider = "snacks",
         split_side = "right",
-        split_width_percentage = 0.30,
+        split_width_percentage = CHAT_WIDTH_RATIO,
       },
       diff_opts = {
         layout = "horizontal",
@@ -70,7 +74,7 @@ return {
       terminal = {
         provider = "snacks",
         split_side = "right",
-        split_width_percentage = 0.30,
+        split_width_percentage = CHAT_WIDTH_RATIO,
       },
       diff_opts = {
         layout = "horizontal",
@@ -113,7 +117,7 @@ return {
       },
       ui = {
         position = "right",
-        window_width = 0.30,
+        window_width = CHAT_WIDTH_RATIO,
       },
     },
     config = function(_, opts)
