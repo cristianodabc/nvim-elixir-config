@@ -76,7 +76,7 @@ Editing the proposed pane before accepting is supported by both: what you accept
 
 π layers review notes on top of the same prefix. `<leader>dn` attaches a note to the current line or visual selection, `<leader>dx` deletes one, `<leader>dN` lists them, and `<leader>de` and `<leader>ds` grow and shrink the visible context. Notes travel back to the agent with the verdict instead of being written into the file.
 
-π shows no diff at all without a permission extension, because pi has no permission system of its own and applies edits directly. See [System dependencies](docs/dependencies.md).
+π only reaches this review behind a permission extension, because pi has no permission system of its own and otherwise applies edits directly. See [System dependencies](docs/dependencies.md) for the install and its rules.
 
 ## Organization
 

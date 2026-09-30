@@ -62,7 +62,7 @@ Codex, Claude, and π are separate, optional integrations:
 
 - Codex: follow the [Codex CLI installation guide](https://learn.chatgpt.com/docs/codex/cli).
 - Claude: run `npm install -g @anthropic-ai/claude-code`.
-- π: run `npm install -g --ignore-scripts @earendil-works/pi-coding-agent`. Needs Node 22.19 or newer.
+- π: run `npm install -g --ignore-scripts @earendil-works/pi-coding-agent`. Needs Node 22.19 or newer. `:PiPasteImage` also needs `brew install pngpaste`.
 
 ### π on Claude models
 
@@ -87,9 +87,30 @@ pi --list-models anthropic
 
 ### π diff review needs a permission extension
 
-pi ships no permission system. It dispatches `edit` and `write` the moment it decides to, so by default the agent writes straight to disk and `pi.nvim` never gets a chance to show a diff. Diff review only happens when an extension intercepts those tool calls and routes them through `ctx.ui.select`.
+pi ships no permission system. It dispatches `edit` and `write` the moment it decides to, so nothing stands between the agent and your files and `pi.nvim` never gets a chance to show a diff. Diff review only happens when an extension intercepts those tool calls and routes them through `ctx.ui.select`.
 
-[`alex35mil/agentic-af`](https://github.com/alex35mil/agentic-af) is the reference implementation, installed with `pi install git:github.com/alex35mil/agentic-af`. Its `permission` extension imports shared helpers from the package, so it cannot be installed on its own; the package also carries five other extensions, skills, prompts, themes, and a workflow system. Review that source before installing it, since a permission extension sees every tool call the agent makes.
+[`alex35mil/agentic-af`](https://github.com/alex35mil/agentic-af) is the reference implementation:
+
+```shell
+pi install git:github.com/alex35mil/agentic-af
+```
+
+Its `permission` extension imports shared helpers from the package, so it cannot be installed alone. The package also carries `context`, `fetch`, `mcp`, `rules`, and `web-search` extensions plus skills, prompt templates, themes, and a workflow system, and its MCP dependency tree currently reports several high-severity npm advisories. A permission extension sees every tool call the agent makes, so read that source before installing it and prune what you do not want with `pi config`.
+
+Rules live in `~/.pi/agent/permission.settings.json`, with per-project overrides in `<repo>/.agents/permission.settings.json`:
+
+```json
+{
+  "defaultMode": "ask",
+  "allow": ["read", "grep", "find", "ls", "bash(git status*)", "bash(mix test*)"],
+  "deny": ["bash(rm -rf *)", "bash(git push*)"],
+  "ask": ["edit", "write"]
+}
+```
+
+Keeping `edit` and `write` on `ask` is what produces the diff review, so leave them there. Anything left to `defaultMode` prompts, which makes a bare install prompt on every read. Evaluation runs session override, then `deny`, then `ask`, then `allow`, then `defaultMode`, and writable shell redirects escalate an otherwise-allowed `bash` call to a prompt. Invalid settings fail closed and block every agent tool, so validate a change by reading a file and editing one in a scratch directory.
+
+`/permission-settings` inside π prints the resolved rules, and `/permission-toggle-auto-accept` skips review for a session.
 
 ## 5. Optional integrations
 
@@ -151,6 +172,9 @@ Useful feature checks:
 :ConformInfo
 :checkhealth snacks
 :Obsidian check
+:Lazy load pi.nvim | checkhealth pi
 ```
+
+π is lazy-loaded, so its health check reports `No healthcheck found` until the plugin is loaded. It warns when the installed `pi` is newer than the version `pi.nvim` last validated against, which is expected rather than broken.
 
 Plugins not represented above are implemented in Lua and need no separate system installation.

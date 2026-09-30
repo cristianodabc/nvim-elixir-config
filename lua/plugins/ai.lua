@@ -158,12 +158,15 @@ return {
 
   {
     "alex35mil/pi.nvim",
+    -- Only :PiPasteImage needs img-clip, which in turn needs pngpaste on macOS.
+    dependencies = { "HakonHarnes/img-clip.nvim" },
     cmd = {
       "Pi",
       "PiContinue",
       "PiResume",
       "PiSelectModel",
       "PiSelectModelAll",
+      "PiPasteImage",
       "PiSendMention",
       "PiStop",
       "PiToggleLayout",
