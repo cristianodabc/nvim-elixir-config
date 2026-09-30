@@ -82,6 +82,31 @@ return {
     },
     config = function(_, opts)
       require("claudecode").setup(opts)
+
+      -- The plugin ships the accept/deny commands but binds no keys. Register
+      -- them buffer-local on the proposed pane so they only exist while a diff
+      -- is live and die with the buffer.
+      local function map(buffer, lhs, rhs, desc)
+        vim.keymap.set("n", lhs, rhs, { buffer = buffer, desc = desc })
+      end
+
+      vim.api.nvim_create_autocmd("User", {
+        group = vim.api.nvim_create_augroup("claudecode-diff-keymaps", { clear = true }),
+        pattern = "ClaudeCodeDiffOpened",
+        callback = function(event)
+          local window = event.data and event.data.diff_window
+
+          if not window or not vim.api.nvim_win_is_valid(window) then
+            return
+          end
+
+          local buffer = vim.api.nvim_win_get_buf(window)
+
+          map(buffer, "<leader>da", "<cmd>ClaudeCodeDiffAccept<cr>", "Accept diff")
+          map(buffer, "<leader>dr", "<cmd>ClaudeCodeDiffDeny<cr>", "Reject diff")
+          map(buffer, "<leader>dq", "<cmd>ClaudeCodeCloseAllDiffs<cr>", "Close pending diffs")
+        end,
+      })
     end,
     keys = {
       {

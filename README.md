@@ -62,6 +62,18 @@ Mappings are defined close to the behavior they invoke and include descriptions 
 | `gpr` | Preview references |
 | `gpc` | Close all preview windows |
 
+### Diff review
+
+Claude Code proposes an edit as a two-pane diff and waits for a verdict. The keys are buffer-local to the proposed pane, so they exist only while a diff is open.
+
+| Mapping | Action |
+| --- | --- |
+| `<leader>da` | Accept the proposed change |
+| `<leader>dr` | Reject the proposed change |
+| `<leader>dq` | Close pending diffs |
+
+Editing the proposed pane before accepting is supported: what you accept is the pane as it stands, not the original proposal.
+
 ## Organization
 
 ```text
