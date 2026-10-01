@@ -19,15 +19,27 @@ Needs Node 22.19 or newer. `--ignore-scripts` is safe here: pi does not rely on 
 brew install pngpaste
 ```
 
-## 2. Authenticate
+## 2. Sign in
 
 pi owns its own credentials. `pi.nvim` never sees them.
 
+Sign in with the Claude subscription rather than an API key, so sessions do not bill per request. `/login` is interactive, so run it from a terminal:
+
 ```shell
-pi auth check --provider anthropic   # prints "ready" when it can reach Claude
+pi
+# /login, pick Anthropic, choose the subscription flow
 ```
 
-If that does not print `ready`, either export `ANTHROPIC_API_KEY` from your shell profile, or run `pi` and use `/login` to attach a subscription. Credentials land in `~/.pi/agent/auth.json`, which stays out of version control.
+The OAuth token lands in `~/.pi/agent/auth.json`, which stays out of version control. Confirm it took:
+
+```shell
+pi auth check --provider anthropic   # prints "ready"
+```
+
+`warnings.anthropicExtraUsage` stays on by default and warns when a subscription session is about to spend paid extra usage.
+
+> [!NOTE]
+> An `ANTHROPIC_API_KEY` in the environment also satisfies `pi auth check`, which makes a subscription look configured when it is not. It bills per token, and pi does not document which credential wins when both are present. Leave it unset unless API billing is what you want.
 
 ## 3. Settings
 
