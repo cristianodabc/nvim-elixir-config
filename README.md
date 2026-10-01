@@ -76,7 +76,7 @@ Editing the proposed pane before accepting is supported by both: what you accept
 
 π layers review notes on top of the same prefix. `<leader>dn` attaches a note to the current line or visual selection, `<leader>dx` deletes one, `<leader>dN` lists them, and `<leader>de` and `<leader>ds` grow and shrink the visible context. Notes travel back to the agent with the verdict instead of being written into the file.
 
-π only reaches this review behind a permission extension, because pi has no permission system of its own and otherwise applies edits directly. See [System dependencies](docs/dependencies.md) for the install and its rules.
+π only reaches this review behind a permission extension, because pi has no permission system of its own and otherwise applies edits directly. See [π setup](docs/pi-setup.md) for the install and its rules.
 
 ## Organization
 
@@ -112,4 +112,5 @@ Keep credentials and machine-specific paths out of the repository. Prefer enviro
 ## Guides
 
 - [System dependencies](docs/dependencies.md)
+- [π setup](docs/pi-setup.md)
 - [OpenCode with local Ollama models](docs/opencode-ollama.md)

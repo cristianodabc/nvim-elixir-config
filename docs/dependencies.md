@@ -62,55 +62,7 @@ Codex, Claude, and π are separate, optional integrations:
 
 - Codex: follow the [Codex CLI installation guide](https://learn.chatgpt.com/docs/codex/cli).
 - Claude: run `npm install -g @anthropic-ai/claude-code`.
-- π: run `npm install -g --ignore-scripts @earendil-works/pi-coding-agent`. Needs Node 22.19 or newer. `:PiPasteImage` also needs `brew install pngpaste`.
-
-### π on Claude models
-
-`pi.nvim` does not manage credentials or providers; both live in pi itself. Point pi at Anthropic in `~/.pi/agent/settings.json`:
-
-```json
-{
-  "defaultProvider": "anthropic",
-  "defaultModel": "claude-opus-5-5",
-  "enabledModels": ["anthropic/claude-opus-*", "anthropic/claude-sonnet-*", "anthropic/claude-haiku-*"]
-}
-```
-
-`defaultModel` is an exact ID and needs bumping when a newer Opus ships; `enabledModels` bounds what the pickers offer. Authenticate with `ANTHROPIC_API_KEY` in the environment, or run `/login` inside `pi` to attach a subscription. Verify both with:
-
-```shell
-pi auth check --provider anthropic
-pi --list-models anthropic
-```
-
-`:PiSelectModel` in Neovim narrows to the newest Opus, Sonnet, and Haiku; `:PiSelectModelAll` reaches everything pi can see.
-
-### π diff review needs a permission extension
-
-pi ships no permission system. It dispatches `edit` and `write` the moment it decides to, so nothing stands between the agent and your files and `pi.nvim` never gets a chance to show a diff. Diff review only happens when an extension intercepts those tool calls and routes them through `ctx.ui.select`.
-
-[`alex35mil/agentic-af`](https://github.com/alex35mil/agentic-af) is the reference implementation:
-
-```shell
-pi install git:github.com/alex35mil/agentic-af
-```
-
-Its `permission` extension imports shared helpers from the package, so it cannot be installed alone. The package also carries `context`, `fetch`, `mcp`, `rules`, and `web-search` extensions plus skills, prompt templates, themes, and a workflow system, and its MCP dependency tree currently reports several high-severity npm advisories. A permission extension sees every tool call the agent makes, so read that source before installing it and prune what you do not want with `pi config`.
-
-Rules live in `~/.pi/agent/permission.settings.json`, with per-project overrides in `<repo>/.agents/permission.settings.json`:
-
-```json
-{
-  "defaultMode": "ask",
-  "allow": ["read", "grep", "find", "ls", "bash(git status*)", "bash(mix test*)"],
-  "deny": ["bash(rm -rf *)", "bash(git push*)"],
-  "ask": ["edit", "write"]
-}
-```
-
-Keeping `edit` and `write` on `ask` is what produces the diff review, so leave them there. Anything left to `defaultMode` prompts, which makes a bare install prompt on every read. Evaluation runs session override, then `deny`, then `ask`, then `allow`, then `defaultMode`, and writable shell redirects escalate an otherwise-allowed `bash` call to a prompt. Invalid settings fail closed and block every agent tool, so validate a change by reading a file and editing one in a scratch directory.
-
-`/permission-settings` inside π prints the resolved rules, and `/permission-toggle-auto-accept` skips review for a session.
+- π: follow [π setup](pi-setup.md). It covers the CLI, authentication, the tools, and the permission extension that diff review depends on.
 
 ## 5. Optional integrations
 
