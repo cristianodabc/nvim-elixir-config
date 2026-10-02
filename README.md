@@ -1,6 +1,6 @@
 # Neovim configuration
 
-An opinionated Neovim setup for Elixir-focused development on macOS. It also includes Lua and Gleam language support, Git and worktree workflows, Obsidian integration, and optional AI assistants.
+An opinionated Neovim setup for Elixir-focused development on macOS. It also includes Lua and Gleam language support, Git and worktree workflows, and Obsidian integration.
 
 This is a personal configuration rather than a general-purpose Neovim distribution. Machine-specific integrations are isolated behind environment variables or documented conventions where practical.
 
@@ -11,7 +11,7 @@ This is a personal configuration rather than a general-purpose Neovim distributi
 - Completion, diagnostics, formatting, and test navigation.
 - Telescope search, nvim-tree file browsing, and project-wide replacement.
 - Gitsigns, LazyGit, permalinks, and tab-local worktree switching.
-- Optional Codex, Claude Code, Pi, OpenCode, Ollama, and Obsidian integrations.
+- Optional Obsidian integration.
 
 ## Requirements
 
@@ -20,7 +20,7 @@ This is a personal configuration rather than a general-purpose Neovim distributi
 - Git and the required command-line tools listed in [docs/dependencies.md](docs/dependencies.md).
 - A Nerd Font configured in the terminal.
 
-AI assistants, language servers other than Lua, and Obsidian are optional. Their plugin specifications can remain installed when the corresponding executable or environment variable is unavailable.
+Language servers other than Lua and Obsidian are optional. Their plugin specifications can remain installed when the corresponding executable or environment variable is unavailable.
 
 ## Installation
 
@@ -37,7 +37,6 @@ The leader key is `Space`; the local leader is `,`. Press `Space` and pause to o
 
 | Prefix | Area |
 | --- | --- |
-| `<leader>a` | AI assistants |
 | `<leader>b` | Buffers |
 | `<leader>c` | Code and LSP actions |
 | `<leader>f` | File and project discovery |
@@ -61,22 +60,6 @@ Mappings are defined close to the behavior they invoke and include descriptions 
 | `gpD` | Preview declaration |
 | `gpr` | Preview references |
 | `gpc` | Close all preview windows |
-
-### Diff review
-
-Claude Code and π both propose an edit as a two-pane diff and wait for a verdict. Both bind the same keys, and both bind them buffer-local to the proposed pane, so they exist only while a diff is open.
-
-| Mapping | Action |
-| --- | --- |
-| `<leader>da` | Accept the proposed change |
-| `<leader>dr` | Reject the proposed change |
-| `<leader>dq` | Close pending Claude diffs |
-
-Editing the proposed pane before accepting is supported by both: what you accept is the pane as it stands, not the original proposal.
-
-π layers review notes on top of the same prefix. `<leader>dn` attaches a note to the current line or visual selection, `<leader>dx` deletes one, `<leader>dN` lists them, and `<leader>de` and `<leader>ds` grow and shrink the visible context. Notes travel back to the agent with the verdict instead of being written into the file.
-
-π only reaches this review behind a permission extension, because pi has no permission system of its own and otherwise applies edits directly. See [π setup](docs/pi-setup.md) for the install and its rules.
 
 ## Organization
 
@@ -112,5 +95,3 @@ Keep credentials and machine-specific paths out of the repository. Prefer enviro
 ## Guides
 
 - [System dependencies](docs/dependencies.md)
-- [π setup](docs/pi-setup.md)
-- [OpenCode with local Ollama models](docs/opencode-ollama.md)

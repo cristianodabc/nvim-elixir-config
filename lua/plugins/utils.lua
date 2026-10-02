@@ -45,10 +45,8 @@ return {
         },
       },
       -- Groups without an icon fall back to which-key's built-in rules, which
-      -- already cover AI, Buffer, Code, Find, Git, Search, and Diagnostics.
+      -- already cover Buffer, Code, Find, Git, Search, and Diagnostics.
       spec = {
-        { "<leader>a", group = "AI" },
-        { "<leader>ao", group = "OpenCode" },
         { "<leader>b", group = "Buffer" },
         { "<leader>bs", group = "Sort", icon = { icon = "", color = "cyan" } },
         { "<leader>c", group = "Code" },

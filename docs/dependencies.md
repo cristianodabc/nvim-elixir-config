@@ -46,25 +46,7 @@ dexter version
 
 Elixir and Erlang installation is intentionally not covered here.
 
-## 4. Local AI
-
-OpenCode and Ollama are required only for the local AI integrations:
-
-```shell
-brew install --cask ollama-app
-brew install anomalyco/tap/opencode
-```
-
-Follow [OpenCode with Ollama](opencode-ollama.md) to install the models, configure their short
-aliases, and point OpenCode at them.
-
-Codex, Claude, and π are separate, optional integrations:
-
-- Codex: follow the [Codex CLI installation guide](https://learn.chatgpt.com/docs/codex/cli).
-- Claude: run `npm install -g @anthropic-ai/claude-code`.
-- π: follow [π setup](pi-setup.md). It covers the CLI, authentication, the tools, and the permission extension that diff review depends on.
-
-## 5. Optional integrations
+## 4. Optional integrations
 
 Install only what you use.
 
@@ -82,7 +64,7 @@ export OBSIDIAN_VAULT="/path/to/vault"
 
 Keep database credentials in environment variables, not in this repository.
 
-## 6. Inline images and Mermaid diagrams
+## 5. Inline images and Mermaid diagrams
 
 `snacks.image` draws images and `mermaid` code blocks inline in the buffer. It needs a terminal that
 speaks the Kitty graphics protocol: Ghostty, Kitty, or WezTerm.
@@ -109,7 +91,7 @@ mmdc -i /tmp/t.mmd -o /tmp/t.png && magick identify /tmp/t.png
 If `mmdc` reports a version of `chrome-headless-shell` it cannot find, rerun the install command
 with that exact version appended, such as `chrome-headless-shell@152.0.7977.75`.
 
-## 7. Install and verify Neovim plugins
+## 6. Install and verify Neovim plugins
 
 Start Neovim and run:
 
@@ -124,9 +106,6 @@ Useful feature checks:
 :ConformInfo
 :checkhealth snacks
 :Obsidian check
-:Lazy load pi.nvim | checkhealth pi
 ```
-
-π is lazy-loaded, so its health check reports `No healthcheck found` until the plugin is loaded. It warns when the installed `pi` is newer than the version `pi.nvim` last validated against, which is expected rather than broken.
 
 Plugins not represented above are implemented in Lua and need no separate system installation.
