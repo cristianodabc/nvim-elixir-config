@@ -16,6 +16,7 @@ return {
           { "https://www.theverge.com/rss/index.xml", name = "The Verge" },
           { "https://feeds.arstechnica.com/arstechnica/index", name = "Ars Technica" },
           { "https://simonwillison.net/atom/everything/", name = "Simon Willison" },
+          { "https://littlemight.com/rss/index.xml", name = "Little Might" },
         },
 
         elixir = {
